@@ -1,106 +1,132 @@
 ```typescript
 /**
- * Types and Interfaces for Car Selling Platform
+ * @file CarSellingLandingPage.tsx
+ * @description Main structure for a car selling landing page including 
+ * hero section, car listings, search functionality, and contact forms.
  */
-export interface Car {
+
+import React from 'react';
+
+// --- Types & Interfaces ---
+
+interface Car {
   id: string;
   make: string;
   model: string;
   year: number;
   price: number;
   mileage: number;
-  transmission: 'Automatic' | 'Manual';
-  fuelType: 'Gasoline' | 'Diesel' | 'Electric' | 'Hybrid';
   imageUrl: string;
+  condition: 'new' | 'used';
 }
 
-export interface FilterCriteria {
-  make?: string;
+interface SearchFilters {
+  query: string;
   minPrice?: number;
   maxPrice?: number;
-  bodyType?: string;
+  make?: string;
 }
 
-/**
- * Navigation Component
- * Handles branding and primary site links
- */
-export const Header: React.FC = () => {
-  // TODO: Implement responsive mobile menu toggle logic
-  return null;
-};
+// --- Components ---
 
 /**
- * Hero Section
- * Main value proposition and primary Call to Action (CTA)
+ * Hero section with a call to action
  */
-export const Hero: React.FC = () => {
-  // TODO: Add background image optimization and primary search entry point
-  return null;
-};
-
-/**
- * Search and Filter Component
- * Allows users to narrow down the car inventory
- */
-export const CarFilters: React.FC<{ onFilter: (filters: FilterCriteria) => void }> = () => {
-  // TODO: Implement state management for dropdowns and range sliders
-  return null;
-};
-
-/**
- * Car Card Component
- * Displays individual vehicle overview
- */
-export const CarCard: React.FC<{ car: Car }> = () => {
-  // TODO: Add "View Details" navigation and price formatting utility
-  return null;
-};
-
-/**
- * Featured Listings Section
- * Grid display of top-performing or newest car listings
- */
-export const FeaturedListings: React.FC = () => {
-  // TODO: Implement data fetching from CMS or API
-  return null;
-};
-
-/**
- * Benefits/Services Section
- * Highlights USP (Unique Selling Propositions) like "Certified Pre-owned", "Easy Financing"
- */
-export const Benefits: React.FC = () => {
-  return null;
-};
-
-/**
- * Footer Component
- * Contains SEO links, social media, and newsletter subscription
- */
-export const Footer: React.FC = () => {
-  // TODO: Implement newsletter subscription form handling
-  return null;
-};
-
-/**
- * Main Landing Page Container
- * Composes all sections into a single page layout
- */
-const CarSellingLandingPage: React.FC = () => {
+const Hero: React.FC = () => {
   return (
-    <div className="landing-page-container">
-      <Header />
-      <main>
-        <Hero />
-        <section className="search-section">
-          <CarFilters onFilter={(f) => console.log('Filtering...', f)} />
-        </section>
-        <FeaturedListings />
-        <Benefits />
-      </main>
-      <Footer />
+    <section className="hero-section">
+      {/* TODO: Implement high-quality background image and catchy headline */}
+      {/* TODO: Add primary Call-to-Action buttons (e.g., "Browse Cars", "Sell Your Car") */}
+    </section>
+  );
+};
+
+/**
+ * Search and filter bar for finding specific vehicles
+ */
+const SearchBar: React.FC<{ onSearch: (filters: SearchFilters) => void }> = ({ onSearch }) => {
+  // TODO: Implement state management for input fields
+  // TODO: Add debounced search functionality
+  return (
+    <div className="search-bar">
+      {/* TODO: Implement inputs for Make, Model, Price Range */}
     </div>
+  );
+};
+
+/**
+ * Individual car card component
+ */
+const CarCard: React.FC<{ car: Car }> = ({ car }) => {
+  return (
+    <div className="car-card">
+      {/* TODO: Display car image, title, price, and key specs (mileage, year) */}
+      {/* TODO: Add "View Details" navigation link */}
+    </div>
+  );
+};
+
+/**
+ * Grid display for the car inventory
+ */
+const InventoryGrid: React.FC<{ cars: Car[] }> = ({ cars }) => {
+  return (
+    <section className="inventory-grid">
+      {/* TODO: Map through cars array and render CarCard components */}
+      {/* TODO: Implement empty state when no cars match filters */}
+    </section>
+  );
+};
+
+/**
+ * Footer section including contact info and lead generation form
+ */
+const Footer: React.FC = () => {
+  return (
+    <footer className="landing-footer">
+      {/* TODO: Add lead capture form (Name, Email, Phone) */}
+      {/* TODO: Add dealership location and social media links */}
+    </footer>
+  );
+};
+
+// --- Main Page Component ---
+
+const CarSellingLandingPage: React.FC = () => {
+  // TODO: Initialize state for car list using a fetching hook (e.g., React Query or useEffect)
+  // TODO: Initialize state for active filters
+
+  /**
+   * Handles filter changes from the SearchBar
+   */
+  const handleFilterChange = (filters: SearchFilters) => {
+    // TODO: Update state and trigger re-fetch or client-side filtering
+  };
+
+  return (
+    <main className="landing-page-container">
+      {/* Navigation Header */}
+      <header>
+        {/* TODO: Implement sticky navigation menu with Logo and Links */}
+      </header>
+
+      <Hero />
+
+      <div className="content-wrapper">
+        <SearchBar onSearch={handleFilterChange} />
+        
+        {/* TODO: Add sorting options (Price Low-High, Newest First) */}
+        
+        <InventoryGrid cars={[]} /> 
+      </div>
+
+      {/* Social Proof / Testimonials Section */}
+      <section className="testimonials">
+        {/* TODO: Implement a slider or grid of customer reviews */}
+      </section>
+
+      <Footer />
+    </main>
   );
 };
 
