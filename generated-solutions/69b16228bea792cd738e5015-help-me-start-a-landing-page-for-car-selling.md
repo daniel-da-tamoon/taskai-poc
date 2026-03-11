@@ -1,15 +1,9 @@
 ```typescript
 /**
- * @file CarSellingLandingPage.tsx
- * @description Main structure for a car selling landing page including 
- * hero section, car listings, search functionality, and contact forms.
+ * Types and Interfaces for the Car Selling Landing Page
  */
 
-import React from 'react';
-
-// --- Types & Interfaces ---
-
-interface Car {
+export interface Car {
   id: string;
   make: string;
   model: string;
@@ -17,118 +11,116 @@ interface Car {
   price: number;
   mileage: number;
   imageUrl: string;
-  condition: 'new' | 'used';
+  fuelType: 'Gasoline' | 'Electric' | 'Hybrid' | 'Diesel';
+  transmission: 'Automatic' | 'Manual';
 }
 
-interface SearchFilters {
-  query: string;
-  minPrice?: number;
-  maxPrice?: number;
+export interface FilterCriteria {
   make?: string;
+  maxPrice?: number;
+  yearRange?: [number, number];
 }
-
-// --- Components ---
 
 /**
- * Hero section with a call to action
+ * Components Structure
  */
-const Hero: React.FC = () => {
+
+/**
+ * Hero Section: Catchy headline and main Call to Action
+ */
+export const Hero: React.FC = () => {
+  // TODO: Implement responsive hero layout with a high-quality background image
   return (
-    <section className="hero-section">
-      {/* TODO: Implement high-quality background image and catchy headline */}
-      {/* TODO: Add primary Call-to-Action buttons (e.g., "Browse Cars", "Sell Your Car") */}
+    <section>
+      {/* Headline and Sub-headline */}
+      {/* Primary CTA Button */}
     </section>
   );
 };
 
 /**
- * Search and filter bar for finding specific vehicles
+ * SearchBar: Allows users to filter the car inventory
  */
-const SearchBar: React.FC<{ onSearch: (filters: SearchFilters) => void }> = ({ onSearch }) => {
-  // TODO: Implement state management for input fields
-  // TODO: Add debounced search functionality
+export const SearchBar: React.FC<{ onSearch: (filters: FilterCriteria) => void }> = ({ onSearch }) => {
+  // TODO: Implement state management for search inputs (Make, Model, Price Range)
   return (
-    <div className="search-bar">
-      {/* TODO: Implement inputs for Make, Model, Price Range */}
-    </div>
+    <form>
+      {/* Input fields for car search */}
+    </form>
   );
 };
 
 /**
- * Individual car card component
+ * CarCard: Displays a preview of a single car listing
  */
-const CarCard: React.FC<{ car: Car }> = ({ car }) => {
+export const CarCard: React.FC<{ car: Car }> = ({ car }) => {
+  // TODO: Implement image lazy loading and price formatting
   return (
     <div className="car-card">
-      {/* TODO: Display car image, title, price, and key specs (mileage, year) */}
-      {/* TODO: Add "View Details" navigation link */}
+      {/* Car Image */}
+      {/* Car Details (Year, Make, Model) */}
+      {/* Specs (Mileage, Transmission) */}
+      {/* Price Tag */}
     </div>
   );
 };
 
 /**
- * Grid display for the car inventory
+ * InventoryGrid: Container for displaying filtered car cards
  */
-const InventoryGrid: React.FC<{ cars: Car[] }> = ({ cars }) => {
+export const InventoryGrid: React.FC<{ cars: Car[] }> = ({ cars }) => {
+  // TODO: Implement empty state if no cars match filters
   return (
-    <section className="inventory-grid">
-      {/* TODO: Map through cars array and render CarCard components */}
-      {/* TODO: Implement empty state when no cars match filters */}
+    <div className="grid">
+      {/* Map through cars and render CarCard components */}
+    </div>
+  );
+};
+
+/**
+ * Services/Features Section: Explains why customers should choose this platform
+ */
+export const WhyChooseUs: React.FC = () => {
+  return (
+    <section>
+      {/* Feature icons and descriptions (e.g., Verified Dealers, Best Prices) */}
     </section>
   );
 };
 
 /**
- * Footer section including contact info and lead generation form
+ * Main Landing Page Component
  */
-const Footer: React.FC = () => {
-  return (
-    <footer className="landing-footer">
-      {/* TODO: Add lead capture form (Name, Email, Phone) */}
-      {/* TODO: Add dealership location and social media links */}
-    </footer>
-  );
-};
-
-// --- Main Page Component ---
-
 const CarSellingLandingPage: React.FC = () => {
-  // TODO: Initialize state for car list using a fetching hook (e.g., React Query or useEffect)
-  // TODO: Initialize state for active filters
-
-  /**
-   * Handles filter changes from the SearchBar
-   */
-  const handleFilterChange = (filters: SearchFilters) => {
-    // TODO: Update state and trigger re-fetch or client-side filtering
-  };
+  // TODO: Initialize data fetching logic for car listings
+  // TODO: Implement filter logic based on SearchBar input
 
   return (
     <main className="landing-page-container">
-      {/* Navigation Header */}
-      <header>
-        {/* TODO: Implement sticky navigation menu with Logo and Links */}
-      </header>
-
       <Hero />
-
+      
       <div className="content-wrapper">
-        <SearchBar onSearch={handleFilterChange} />
+        <SearchBar onSearch={(filters) => console.log('Filtering logic...', filters)} />
         
-        {/* TODO: Add sorting options (Price Low-High, Newest First) */}
-        
-        <InventoryGrid cars={[]} /> 
+        <section id="inventory">
+          <h2>Featured Listings</h2>
+          <InventoryGrid cars={[]} /> {/* Pass stateful cars here */}
+        </section>
+
+        <WhyChooseUs />
       </div>
 
-      {/* Social Proof / Testimonials Section */}
-      <section className="testimonials">
-        {/* TODO: Implement a slider or grid of customer reviews */}
-      </section>
-
-      <Footer />
+      {/* TODO: Add Footer component with newsletter and contact info */}
     </main>
   );
 };
 
 export default CarSellingLandingPage;
+
+/**
+ * Hooks & Utils
+ */
+
+// TODO: Create a useCars hook to fetch inventory from a CMS or API
+// TODO: Implement a utility function for currency formatting (e.g., USD, EUR)
 ```
